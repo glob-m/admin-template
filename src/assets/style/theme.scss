@@ -1,0 +1,132 @@
+
+$min-width: 1200px;
+$primary-color: #ED4040;                         // 全局主色
+$primary-hover-color: rgba(237, 64, 64, 0.8);    // 全局主色(hover)
+$link-color: #1890ff;                            // 链接色
+$success-color: #67C23A;                         // 成功色
+$warning-color: #E6A23C;                         // 警告色
+$error-color: #F56C6C;                           // 错误色
+$info-color: #909399;                           // 错误色
+$font-size-base: 14px;                           // 主字号
+$heading-color: rgba(0, 0, 0, .85);              // 标题色
+$text-color: rgba(0, 0, 0, .65);                 // 主文本色
+$text-color-secondary : rgba(0, 0, 0, .45);      // 次文本色
+$disabled-color : rgba(0, 0, 0, .25);            // 失效色
+$border-radius-base:1px;                        // 组件/浮层圆角
+$border-color-base: #C8C8C8FF;                     // 边框色
+$box-shadow-base: 0 2px 8px rgba(0, 0, 0, .15);  // 浮层阴影
+
+/*像素转换相对单位rem*/
+@function px2rem($px) {
+  @return $px / $font-size-base * 1rem;
+}
+
+/*表单行*/
+@mixin form_li{
+  position:relative;
+  width:100%;
+  border-bottom:#e0e0e0 px2rem(1px) solid;
+}
+
+/*表单输入框*/
+@mixin form_input{
+  height:3.6rem;
+  outline:0;
+  &::-webkit-input-placeholder {
+    color:#8f8f8f;
+  }
+}
+/*多行省略*/
+@mixin multi-line-ellipsis($lineLimit, $lineHeight: 1, $fixedHeight: false) {
+  line-height: $lineHeight;
+  @if ($fixedHeight) {
+    height: $lineLimit * $lineHeight * 1em;
+  } @else {
+    max-height: $lineLimit * $lineHeight * 1em;
+  }
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lineLimit;
+  -webkit-box-orient: vertical;
+}
+/*单行省略*/
+@mixin single-line-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+// 清除浮动
+@mixin clear-box{
+  &::after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+// 宽高保持一致
+@mixin constant-WH{
+  @include clear-box;
+  &::before{
+    content: '';
+    padding-top: 100%;
+    float: left;
+  }
+}
+
+@mixin flex-box {
+  display: flex;
+  > * {
+    display: block;
+  }
+}
+
+/*图片水平垂直居中*/
+@mixin image-container {
+  @include flex-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: bottom;
+  }
+}
+
+/*块元素百分比下居中*/
+@mixin position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*子元素水平平均地分布，垂直居中*/
+@mixin container-center {
+  @include flex-box;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/*主体距离头部和尾*/
+@mixin body-up-bom{
+  width:100%;
+  height:auto;
+  padding: 4.16rem 0 5rem;
+}
+
+/*外层盒子距头尾*/
+.bodyWrap{
+  @include body-up-bom;
+}
+
+/*外层盒子*/
+@mixin containers($white: #fff){
+  width:100%;
+  background: $white;
+}
